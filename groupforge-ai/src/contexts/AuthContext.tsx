@@ -69,6 +69,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             displayName: displayName || user.displayName || 'User',
             role,
             institutionId: '', // Set during onboarding
+            profileCompleted: false, // New users need to complete their profile
             createdAt: now,
             updatedAt: now,
         };

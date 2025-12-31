@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AssessmentProvider } from './contexts';
+import { ProtectedRoute } from './components/layout';
 import {
     LandingPage,
     LoginPage,
@@ -21,15 +22,49 @@ function App() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<SignupPage />} />
 
-                        {/* Protected routes */}
-                        <Route path="/dashboard" element={<DashboardPage />} />
-                        <Route path="/assessment" element={<AssessmentPage />} />
-                        <Route path="/my-teams" element={<DashboardPage />} />
-                        <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/courses" element={<DashboardPage />} />
-                        <Route path="/teams" element={<DashboardPage />} />
-                        <Route path="/analytics" element={<DashboardPage />} />
-                        <Route path="/settings" element={<DashboardPage />} />
+                        {/* Profile route - protected but doesn't require complete profile */}
+                        <Route path="/profile" element={
+                            <ProtectedRoute requireProfileComplete={false}>
+                                <ProfilePage />
+                            </ProtectedRoute>
+                        } />
+
+                        {/* Protected routes - require complete profile */}
+                        <Route path="/dashboard" element={
+                            <ProtectedRoute>
+                                <DashboardPage />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/assessment" element={
+                            <ProtectedRoute>
+                                <AssessmentPage />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/my-teams" element={
+                            <ProtectedRoute>
+                                <DashboardPage />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/courses" element={
+                            <ProtectedRoute>
+                                <DashboardPage />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/teams" element={
+                            <ProtectedRoute>
+                                <DashboardPage />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/analytics" element={
+                            <ProtectedRoute>
+                                <DashboardPage />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/settings" element={
+                            <ProtectedRoute>
+                                <DashboardPage />
+                            </ProtectedRoute>
+                        } />
 
                         {/* Fallback */}
                         <Route path="*" element={<Navigate to="/" replace />} />
