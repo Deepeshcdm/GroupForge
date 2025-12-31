@@ -63,18 +63,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
         displayName: string
     ): Promise<void> {
         const now = new Date();
-        const baseProfile: User = {
+        const baseProfile: Omit<User, 'photoURL'> & { photoURL?: string } = {
             uid: user.uid,
             email: user.email || '',
             displayName: displayName || user.displayName || 'User',
-            photoURL: user.photoURL || undefined,
             role,
             institutionId: '', // Set during onboarding
             createdAt: now,
             updatedAt: now,
         };
 
-        let profile: User;
+        // Only add photoURL if it exists (Firebase doesn't accept undefined)
+        if (user.photoURL) {
+            baseProfile.photoURL = user.photoURL;
+        }
+
+        let profile: typeof baseProfile;
 
         if (role === 'student') {
             profile = {
@@ -91,15 +95,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 },
                 assessmentHistory: [],
                 githubConnected: false,
-                githubUsername: undefined,
                 resumeUploaded: false,
                 teamAssignments: [],
-            } as StudentProfile;
+            };
         } else if (role === 'faculty') {
             profile = {
                 ...baseProfile,
                 coursesManaged: [],
-            } as FacultyProfile;
+            };
         } else {
             profile = baseProfile;
         }

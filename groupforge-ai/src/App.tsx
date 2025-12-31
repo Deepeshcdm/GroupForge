@@ -5,7 +5,8 @@ import {
     LoginPage,
     SignupPage,
     DashboardPage,
-    AssessmentPage
+    AssessmentPage,
+    ProfilePage
 } from './pages';
 import './index.css';
 
@@ -24,7 +25,7 @@ function App() {
                         <Route path="/dashboard" element={<DashboardPage />} />
                         <Route path="/assessment" element={<AssessmentPage />} />
                         <Route path="/my-teams" element={<DashboardPage />} />
-                        <Route path="/profile" element={<DashboardPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/courses" element={<DashboardPage />} />
                         <Route path="/teams" element={<DashboardPage />} />
                         <Route path="/analytics" element={<DashboardPage />} />

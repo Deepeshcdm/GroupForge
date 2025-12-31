@@ -36,7 +36,7 @@ export function SignupPage() {
 
         try {
             await signUpWithEmail(email, password, role, displayName);
-            navigate('/dashboard');
+            navigate('/profile');
         } catch (err: any) {
             setError(err.message || 'Failed to create account');
         } finally {
@@ -50,7 +50,7 @@ export function SignupPage() {
 
         try {
             await signInWithGoogle();
-            navigate('/dashboard');
+            navigate('/profile');
         } catch (err: any) {
             setError(err.message || 'Failed to sign up with Google');
         } finally {
@@ -64,7 +64,7 @@ export function SignupPage() {
 
         try {
             await signInWithGitHub();
-            navigate('/dashboard');
+            navigate('/profile');
         } catch (err: any) {
             setError(err.message || 'Failed to sign up with GitHub');
         } finally {
